@@ -1,0 +1,29 @@
+<RCC>
+  <qresource prefix="voice">
+    <file>300ppi/voice_w.png</file>
+    <file>300ppi/voice_b.png</file>
+  </qresource>
+  <qresource prefix="dia">
+    <file>300ppi/dia_b.png</file>
+    <file>300ppi/dia_g.png</file>
+    <file>300ppi/dia_w.png</file>
+  </qresource>
+  <qresource prefix="settings">
+    <file>300ppi/settings_b.png</file>
+    <file>300ppi/settings_g.png</file>
+    <file>300ppi/settings_w.png</file>
+  </qresource>
+  <qresource prefix="history">
+    <file>300ppi/history_b.png</file>
+    <file>300ppi/history_g.png</file>
+    <file>300ppi/history_w.png</file>
+  </qresource>
+  <qresource prefix="AI">
+    <file>300ppi/gpt.png</file>
+    <file>300ppi/AI.png</file>
+  </qresource>
+  <qresource prefix="send">
+    <file>300ppi/send_b.png</file>
+    <file>300ppi/send_w.png</file>
+  </qresource>
+</RCC>
