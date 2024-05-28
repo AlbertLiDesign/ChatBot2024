@@ -1,9 +1,10 @@
 import json
-
+from datetime import datetime
 
 class ConnectDB:
     def __init__(self):
-        self.chat_db_path = "data/history.json"
+        self.chat_db_path = "../data/history.json"
+        # 示例数据
 
     def get_chat_data(self):
         with open(self.chat_db_path, "r") as f:
@@ -11,25 +12,52 @@ class ConnectDB:
 
         return chat_db
 
-    def get_chat_title_list(self):
+    def get_chat_date_list(self):
         chat_list=[]
         chat_db = self.get_chat_data()
         for chat in chat_db:
-            title = chat.get("title")
-            chat_list.append(title)
+            date = chat.get("date")
+            chat_list.append(date)
 
         return chat_list
 
-    def save_chat_data(self, new_chat_data):
-        with open(self.chat_db_path, "w") as f:
-            f.write(json.dumps(new_chat_data))
+    def set_start_date(self):
+        timestamp = datetime.utcnow().isoformat() + 'Z'  # 获取当前时间戳
+        chat_db = self.get_chat_data()
+        # 更新结束时间
+        chat_db["start_time"] = timestamp
 
-    def delete_all_data(self):
-        chat_db=self.get_chat_data()
-        chat_db.clear()
-        self.save_chat_data(chat_db)
+        # 将更新后的聊天记录写回文件
+        with open(self.chat_db_path, "w", encoding='utf-8') as f:
+            json.dump(chat_db, f, indent=4, ensure_ascii=False)
 
-    def delete_chat_data(self, index):
-        chat_db=self.get_chat_data()
-        chat_db.pop(index)
-        self.save_chat_data(chat_db)
+    def add_chat_data(self, sender, message):
+        timestamp = datetime.utcnow().isoformat() + 'Z'  # 获取当前时间戳
+        chat_db = self.get_chat_data()
+        chat_db["messages"].append({
+            "timestamp": timestamp,
+            "role": sender,
+            "content": message
+        })
+
+        # 更新结束时间
+        chat_db["end_time"] = timestamp
+
+        # 将更新后的聊天记录写回文件
+        with open(self.chat_db_path, "w", encoding='utf-8') as f:
+            json.dump(chat_db, f, indent=4, ensure_ascii=False)
+
+    def reset(self):
+        chat_db = {
+            "session_id": "unique_session_id_12345",
+            "start_time": datetime.utcnow().isoformat() + 'Z',
+            "end_time": None,
+            "participants": {
+                "user": "user_id_67890",
+                "assistant": "gpt-4o"
+            },
+            "messages": []
+        }
+        with open(self.chat_db_path, "w", encoding='utf-8') as f:
+            json.dump(chat_db, f, indent=4, ensure_ascii=False)
+
