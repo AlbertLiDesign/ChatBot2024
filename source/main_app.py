@@ -1,15 +1,24 @@
-from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout
 from PyQt5.QtCore import QTimer, QTime, QDate, QLocale
 
 from gui.main_page import Ui_MainWindow
-from gui.user_widget import Ui_Form as user_form
-from gui.gpt_widget import Ui_Form as gpt_form
+
+from connect_db import ConnectDB
+
+import source.gpt as gpt
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.connect_db = ConnectDB()
+
+        self.chat_btn = self.ui.dia_btn
+        self.set_btn = self.ui.set_btn
+        self.record_btn = self.ui.record_btn
 
         # 创建一个定时器
         self.timer = QTimer(self)
@@ -19,8 +28,8 @@ class MainWindow(QMainWindow):
         # 初始化时钟显示
         self.update_time()
 
-        self.ui.dia_btn.clicked.connect(self.show_chat_page)
-        self.ui.set_btn.clicked.connect(self.show_set_page)
+        self.chat_btn.clicked.connect(self.show_chat_page)
+        self.set_btn.clicked.connect(self.show_set_page)
 
     def update_time(self):
         # 设置应用程序语言环境为英语
@@ -46,56 +55,18 @@ class MainWindow(QMainWindow):
     def show_set_page(self):
         self.ui.stackedWidget.setCurrentIndex(2)
 
+    def get_response(self):
+        if __name__ == '__main__':
+            message_input = self.message_input.toPlainText().strip()
+            chat_db = self.connect_db.get_chat_data()
 
-# class ChatPage(QWidget):
-#     def __init__(self, parent=None, chat_message=None, chat_data=None):
-#         super().__init__(parent)
-#         self.ui_chat = chat_form()
-#         self.ui_chat.setupUi(self)
-#
-#         self.chat_data = chat_data
-#
-#         self.main_verticalLayout = QVBoxLayout(self)
-#         self.main_verticalLayout.setContentsMargins(0, 0, 0, 0)
-#         self.main_verticalLayout.setSpacing(0)
-#         self.main_verticalLayout.setObjectName("main_verticalLayout")
-#
-#         self.chat_data={
-#             "title": "",
-#             "chat_list": []
-#         }
-#
-#         if self.chat_data:
-#             self.chat_data["title"] = self.chat_data["title"]
-#             self.chat_data["chat_list"] += self.chat_data["chat_list"]
-#
-#         self.show_chats()
-#
-#     def show_chats(self):
-#         chat_list = self.chat_data.get("chat_list")
-#         for chat in chat_list:
-#             input_str=chat.get("")
+            # if message_input:
+                #response_list = gpt.dialogue()
 
-
-
-class UserWidget(QWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.ui_user = user_form()
-        self.ui_user.setupUi(self)
-
-        self.user_label = self.ui_user.message
-
-    def set_user_text(self, question):
-        self.user_label.setText(question)
-
-
-class GPTWidget(QWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.ui_gpt = gpt_form()
-        self.ui_gpt.setupUi(self)
-
-        self.gpt_label = self.ui_gpt.message
-    def set_gpt_text(self, answer):
-        self.gpt_label.setText(answer)
+class CustomWidget(QWidget):
+    # Create each chat in chat list
+    def __init__(self, text, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Create layout for chat title
+        layout = QHBoxLayout(self)
+        layout.setContentsMargins(5,0,0,0)
