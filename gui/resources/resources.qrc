@@ -3,6 +3,38 @@
     <file>300ppi/voice_w.png</file>
     <file>300ppi/voice_b.png</file>
   </qresource>
+  <qresource prefix="volume">
+    <file>300ppi/volume_b.png</file>
+    <file>300ppi/volume_w.png</file>
+  </qresource>
+  <qresource prefix="light">
+    <file>300ppi/light_b.png</file>
+    <file>300ppi/light_w.png</file>
+  </qresource>
+  <qresource prefix="return">
+    <file>300ppi/return_b.png</file>
+    <file>300ppi/return_w.png</file>
+  </qresource>
+  <qresource prefix="quit">
+    <file>300ppi/quit_b.png</file>
+    <file>300ppi/quit_w.png</file>
+  </qresource>
+  <qresource prefix="bluetooth">
+    <file>300ppi/bluetooth_b.png</file>
+    <file>300ppi/bluetooth_w.png</file>
+  </qresource>
+  <qresource prefix="language">
+    <file>300ppi/language_b.png</file>
+    <file>300ppi/language_w.png</file>
+  </qresource>
+  <qresource prefix="clear_history">
+    <file>300ppi/history_b.png</file>
+    <file>300ppi/history_w.png</file>
+  </qresource>
+  <qresource prefix="wifi">
+    <file>300ppi/wifi_b.png</file>
+    <file>300ppi/wifi_w.png</file>
+  </qresource>
   <qresource prefix="dia">
     <file>300ppi/dia_b.png</file>
     <file>300ppi/dia_g.png</file>

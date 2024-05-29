@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy
 
-from gui.user_widget import Ui_Form as usr_form
+from gui.usr_widget import Ui_Form as usr_form
 from gui.gpt_widget import Ui_Form as gpt_form
 class UsrWidget(QWidget):
     def __init__(self, parent=None):
@@ -8,7 +8,7 @@ class UsrWidget(QWidget):
         self.ui_user = usr_form()
         self.ui_user.setupUi(self)
 
-        self.user_label = self.ui_user.message
+        self.user_label = self.ui_user.usr_chat
 
     def set_user_text(self, question):
         self.user_label.setText(question)
@@ -20,7 +20,7 @@ class GPTWidget(QWidget):
         self.ui_gpt = gpt_form()
         self.ui_gpt.setupUi(self)
 
-        self.gpt_label = self.ui_gpt.message
+        self.gpt_label = self.ui_gpt.gpt_chat
     def set_gpt_text(self, answer):
         self.gpt_label.setText(answer)
 

@@ -21,10 +21,10 @@ class Ui_MainWindow(object):
 "    background-color:rgb(0,0,0);\n"
 "}")
         self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout.setSpacing(0)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_6.setSpacing(0)
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -48,8 +48,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.dia_btn = QtWidgets.QPushButton(self.frame_3)
-        self.dia_btn.setMaximumSize(QtCore.QSize(180, 100))
+        self.chat_btn = QtWidgets.QPushButton(self.frame_3)
+        self.chat_btn.setMaximumSize(QtCore.QSize(180, 80))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(70, 227, 162))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -105,15 +105,15 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
-        self.dia_btn.setPalette(palette)
+        self.chat_btn.setPalette(palette)
         font = QtGui.QFont()
         font.setFamily("Yu Gothic UI")
         font.setPointSize(15)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.dia_btn.setFont(font)
-        self.dia_btn.setStyleSheet("/* 默认状态 */\n"
+        self.chat_btn.setFont(font)
+        self.chat_btn.setStyleSheet("/* 默认状态 */\n"
 "QPushButton {\n"
 "    background-color: rgb(45,45,45);\n"
 "    border: none;\n"
@@ -134,12 +134,12 @@ class Ui_MainWindow(object):
 "    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
 "}\n"
 "")
-        self.dia_btn.setText("")
-        self.dia_btn.setIconSize(QtCore.QSize(80, 80))
-        self.dia_btn.setObjectName("dia_btn")
-        self.horizontalLayout_2.addWidget(self.dia_btn)
+        self.chat_btn.setText("")
+        self.chat_btn.setIconSize(QtCore.QSize(70, 70))
+        self.chat_btn.setObjectName("chat_btn")
+        self.horizontalLayout_2.addWidget(self.chat_btn)
         self.set_btn = QtWidgets.QPushButton(self.frame_3)
-        self.set_btn.setMaximumSize(QtCore.QSize(180, 100))
+        self.set_btn.setMaximumSize(QtCore.QSize(180, 80))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(70, 227, 162))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -227,7 +227,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.set_btn.setText("")
-        self.set_btn.setIconSize(QtCore.QSize(80, 80))
+        self.set_btn.setIconSize(QtCore.QSize(60, 60))
         self.set_btn.setObjectName("set_btn")
         self.horizontalLayout_2.addWidget(self.set_btn)
         self.frame_2 = QtWidgets.QFrame(self.page_main)
@@ -612,22 +612,22 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_4.setSpacing(0)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.scroll_area = QtWidgets.QScrollArea(self.chat_frame)
-        self.scroll_area.setMaximumSize(QtCore.QSize(400, 300))
-        self.scroll_area.setStyleSheet("scrollArea{\n"
+        self.chat_scroll_area = QtWidgets.QScrollArea(self.chat_frame)
+        self.chat_scroll_area.setMaximumSize(QtCore.QSize(400, 300))
+        self.chat_scroll_area.setStyleSheet("scrollArea{\n"
 "    background-color:rgb(0,0,0);\n"
 "}")
-        self.scroll_area.setWidgetResizable(True)
-        self.scroll_area.setObjectName("scroll_area")
-        self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 396, 296))
-        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.scrollAreaWidgetContents)
+        self.chat_scroll_area.setWidgetResizable(True)
+        self.chat_scroll_area.setObjectName("chat_scroll_area")
+        self.chat_scroll_content = QtWidgets.QWidget()
+        self.chat_scroll_content.setGeometry(QtCore.QRect(0, 0, 396, 296))
+        self.chat_scroll_content.setObjectName("chat_scroll_content")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.chat_scroll_content)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         spacerItem2 = QtWidgets.QSpacerItem(20, 275, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.horizontalLayout_5.addItem(spacerItem2)
-        self.scroll_area.setWidget(self.scrollAreaWidgetContents)
-        self.horizontalLayout_4.addWidget(self.scroll_area)
+        self.chat_scroll_area.setWidget(self.chat_scroll_content)
+        self.horizontalLayout_4.addWidget(self.chat_scroll_area)
         self.record_frame = QtWidgets.QFrame(self.page_chat)
         self.record_frame.setGeometry(QtCore.QRect(0, 300, 400, 100))
         self.record_frame.setMinimumSize(QtCore.QSize(400, 100))
@@ -726,24 +726,616 @@ class Ui_MainWindow(object):
         self.record_btn.setText("")
         self.record_btn.setIconSize(QtCore.QSize(50, 50))
         self.record_btn.setObjectName("record_btn")
+        self.return_btn2 = QtWidgets.QPushButton(self.record_frame)
+        self.return_btn2.setGeometry(QtCore.QRect(20, 20, 100, 60))
+        self.return_btn2.setMinimumSize(QtCore.QSize(100, 60))
+        self.return_btn2.setMaximumSize(QtCore.QSize(100, 60))
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        self.return_btn2.setPalette(palette)
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(15)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.return_btn2.setFont(font)
+        self.return_btn2.setStyleSheet("/* 默认状态 */\n"
+"QPushButton {\n"
+"    background-color: rgb(45,45,45);\n"
+"    border: none;\n"
+"    color:rgb(255,255,255);\n"
+"    font: 15pt \"Segoe UI\";\n"
+"    border-radius: 10px;/* 设置圆角半径 */\n"
+"    qproperty-icon:url(:/return/300ppi/return_w.png)\n"
+"}\n"
+"\n"
+"\n"
+"/* 悬停状态 */\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(70, 227, 162);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}\n"
+"\n"
+"/* 按下状态 */\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(62, 204, 145);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}")
+        self.return_btn2.setText("")
+        self.return_btn2.setIconSize(QtCore.QSize(40, 40))
+        self.return_btn2.setObjectName("return_btn2")
         self.stackedWidget.addWidget(self.page_chat)
         self.page_settings = QtWidgets.QWidget()
         self.page_settings.setObjectName("page_settings")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.page_settings)
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_2.setSpacing(0)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.setting_vertical_layout = QtWidgets.QVBoxLayout()
+        self.setting_vertical_layout.setContentsMargins(0, 0, 0, 0)
+        self.setting_vertical_layout.setSpacing(0)
+        self.setting_vertical_layout.setObjectName("setting_vertical_layout")
+        self.setting_scroll_area = QtWidgets.QScrollArea(self.page_settings)
+        self.setting_scroll_area.setWidgetResizable(True)
+        self.setting_scroll_area.setObjectName("setting_scroll_area")
+        self.setting_scroll_contents = QtWidgets.QWidget()
+        self.setting_scroll_contents.setGeometry(QtCore.QRect(0, 0, 396, 396))
+        self.setting_scroll_contents.setObjectName("setting_scroll_contents")
+        self.gridLayout = QtWidgets.QGridLayout(self.setting_scroll_contents)
+        self.gridLayout.setObjectName("gridLayout")
+        self.setting_grid_layout = QtWidgets.QGridLayout()
+        self.setting_grid_layout.setHorizontalSpacing(15)
+        self.setting_grid_layout.setVerticalSpacing(10)
+        self.setting_grid_layout.setObjectName("setting_grid_layout")
+        self.wifi_btn = QtWidgets.QPushButton(self.setting_scroll_contents)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.wifi_btn.sizePolicy().hasHeightForWidth())
+        self.wifi_btn.setSizePolicy(sizePolicy)
+        self.wifi_btn.setMinimumSize(QtCore.QSize(180, 80))
+        self.wifi_btn.setMaximumSize(QtCore.QSize(180, 80))
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        self.wifi_btn.setPalette(palette)
+        self.wifi_btn.setStyleSheet("/* 默认状态 */\n"
+"QPushButton {\n"
+"    background-color: rgb(45,45,45);\n"
+"    border: none;\n"
+"    color:rgb(255,255,255);\n"
+"    font: 15pt \"Segoe UI\";\n"
+"    border-radius: 25px;/* 设置圆角半径 */\n"
+"    qproperty-icon:url(:/wifi/300ppi/wifi_w.png)\n"
+"}\n"
+"\n"
+"\n"
+"/* 悬停状态 */\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(70, 227, 162);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}\n"
+"\n"
+"/* 按下状态 */\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(62, 204, 145);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}")
+        self.wifi_btn.setIconSize(QtCore.QSize(32, 32))
+        self.wifi_btn.setObjectName("wifi_btn")
+        self.setting_grid_layout.addWidget(self.wifi_btn, 0, 0, 1, 1)
+        self.bluetooth_btn = QtWidgets.QPushButton(self.setting_scroll_contents)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.bluetooth_btn.sizePolicy().hasHeightForWidth())
+        self.bluetooth_btn.setSizePolicy(sizePolicy)
+        self.bluetooth_btn.setMinimumSize(QtCore.QSize(180, 80))
+        self.bluetooth_btn.setMaximumSize(QtCore.QSize(180, 80))
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        self.bluetooth_btn.setPalette(palette)
+        self.bluetooth_btn.setStyleSheet("/* 默认状态 */\n"
+"QPushButton {\n"
+"    background-color: rgb(45,45,45);\n"
+"    border: none;\n"
+"    color:rgb(255,255,255);\n"
+"    font: 15pt \"Segoe UI\";\n"
+"    border-radius: 25px;/* 设置圆角半径 */\n"
+"    qproperty-icon:url(:/bluetooth/300ppi/bluetooth_w.png)\n"
+"}\n"
+"\n"
+"\n"
+"/* 悬停状态 */\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(70, 227, 162);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}\n"
+"\n"
+"/* 按下状态 */\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(62, 204, 145);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}")
+        self.bluetooth_btn.setIconSize(QtCore.QSize(32, 32))
+        self.bluetooth_btn.setObjectName("bluetooth_btn")
+        self.setting_grid_layout.addWidget(self.bluetooth_btn, 0, 1, 1, 1)
+        self.language_btn = QtWidgets.QPushButton(self.setting_scroll_contents)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.language_btn.sizePolicy().hasHeightForWidth())
+        self.language_btn.setSizePolicy(sizePolicy)
+        self.language_btn.setMinimumSize(QtCore.QSize(180, 80))
+        self.language_btn.setMaximumSize(QtCore.QSize(180, 80))
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        self.language_btn.setPalette(palette)
+        self.language_btn.setStyleSheet("/* 默认状态 */\n"
+"QPushButton {\n"
+"    background-color: rgb(45,45,45);\n"
+"    border: none;\n"
+"    color:rgb(255,255,255);\n"
+"    font: 15pt \"Segoe UI\";\n"
+"    border-radius: 25px;/* 设置圆角半径 */\n"
+"    qproperty-icon:url(:/language/300ppi/language_w.png)\n"
+"}\n"
+"\n"
+"\n"
+"/* 悬停状态 */\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(70, 227, 162);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}\n"
+"\n"
+"/* 按下状态 */\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(62, 204, 145);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}")
+        self.language_btn.setIconSize(QtCore.QSize(32, 32))
+        self.language_btn.setObjectName("language_btn")
+        self.setting_grid_layout.addWidget(self.language_btn, 1, 0, 1, 1)
+        self.clear_history_btn = QtWidgets.QPushButton(self.setting_scroll_contents)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.clear_history_btn.sizePolicy().hasHeightForWidth())
+        self.clear_history_btn.setSizePolicy(sizePolicy)
+        self.clear_history_btn.setMinimumSize(QtCore.QSize(180, 80))
+        self.clear_history_btn.setMaximumSize(QtCore.QSize(180, 80))
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(45, 45, 45))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        self.clear_history_btn.setPalette(palette)
+        self.clear_history_btn.setStyleSheet("/* 默认状态 */\n"
+"QPushButton {\n"
+"    background-color: rgb(45,45,45);\n"
+"    border: none;\n"
+"    color:rgb(255,255,255);\n"
+"    font: 15pt \"Segoe UI\";\n"
+"    border-radius: 25px;/* 设置圆角半径 */\n"
+"    qproperty-icon:url(:/history/300ppi/history_w.png)\n"
+"}\n"
+"\n"
+"\n"
+"/* 悬停状态 */\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(70, 227, 162);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}\n"
+"\n"
+"/* 按下状态 */\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(62, 204, 145);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}")
+        self.clear_history_btn.setIconSize(QtCore.QSize(32, 32))
+        self.clear_history_btn.setObjectName("clear_history_btn")
+        self.setting_grid_layout.addWidget(self.clear_history_btn, 1, 1, 1, 1)
+        self.light_btn = QtWidgets.QPushButton(self.setting_scroll_contents)
+        self.light_btn.setMinimumSize(QtCore.QSize(180, 80))
+        self.light_btn.setMaximumSize(QtCore.QSize(180, 80))
+        self.light_btn.setStyleSheet("/* 默认状态 */\n"
+"QPushButton {\n"
+"    background-color: rgb(45,45,45);\n"
+"    border: none;\n"
+"    color:rgb(255,255,255);\n"
+"    font: 15pt \"Segoe UI\";\n"
+"    border-radius: 25px;/* 设置圆角半径 */\n"
+"    qproperty-icon:url(:/light/300ppi/light_w.png)\n"
+"}\n"
+"\n"
+"\n"
+"/* 悬停状态 */\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(70, 227, 162);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}\n"
+"\n"
+"/* 按下状态 */\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(62, 204, 145);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}")
+        self.light_btn.setIconSize(QtCore.QSize(32, 32))
+        self.light_btn.setObjectName("light_btn")
+        self.setting_grid_layout.addWidget(self.light_btn, 2, 0, 1, 1)
+        self.volume_btn = QtWidgets.QPushButton(self.setting_scroll_contents)
+        self.volume_btn.setMinimumSize(QtCore.QSize(180, 80))
+        self.volume_btn.setMaximumSize(QtCore.QSize(180, 80))
+        self.volume_btn.setStyleSheet("/* 默认状态 */\n"
+"QPushButton {\n"
+"    background-color: rgb(45,45,45);\n"
+"    border: none;\n"
+"    color:rgb(255,255,255);\n"
+"    font: 15pt \"Segoe UI\";\n"
+"    border-radius: 25px;/* 设置圆角半径 */\n"
+"    qproperty-icon:url(:/volume/300ppi/volume_w.png)\n"
+"}\n"
+"\n"
+"\n"
+"/* 悬停状态 */\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(70, 227, 162);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}\n"
+"\n"
+"/* 按下状态 */\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(62, 204, 145);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}")
+        self.volume_btn.setIconSize(QtCore.QSize(32, 32))
+        self.volume_btn.setObjectName("volume_btn")
+        self.setting_grid_layout.addWidget(self.volume_btn, 2, 1, 1, 1)
+        self.return_btn = QtWidgets.QPushButton(self.setting_scroll_contents)
+        self.return_btn.setMinimumSize(QtCore.QSize(180, 80))
+        self.return_btn.setMaximumSize(QtCore.QSize(180, 80))
+        self.return_btn.setStyleSheet("/* 默认状态 */\n"
+"QPushButton {\n"
+"    background-color: rgb(45,45,45);\n"
+"    border: none;\n"
+"    color:rgb(255,255,255);\n"
+"    font: 15pt \"Segoe UI\";\n"
+"    border-radius: 25px;/* 设置圆角半径 */\n"
+"    qproperty-icon:url(:/return/300ppi/return_w.png)\n"
+"}\n"
+"\n"
+"\n"
+"/* 悬停状态 */\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(70, 227, 162);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}\n"
+"\n"
+"/* 按下状态 */\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(62, 204, 145);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}")
+        self.return_btn.setIconSize(QtCore.QSize(32, 32))
+        self.return_btn.setObjectName("return_btn")
+        self.setting_grid_layout.addWidget(self.return_btn, 3, 0, 1, 1)
+        self.quit_btn = QtWidgets.QPushButton(self.setting_scroll_contents)
+        self.quit_btn.setMinimumSize(QtCore.QSize(180, 80))
+        self.quit_btn.setMaximumSize(QtCore.QSize(180, 80))
+        self.quit_btn.setStyleSheet("/* 默认状态 */\n"
+"QPushButton {\n"
+"    background-color: rgb(45,45,45);\n"
+"    border: none;\n"
+"    color:rgb(255,255,255);\n"
+"    font: 15pt \"Segoe UI\";\n"
+"    border-radius: 25px;/* 设置圆角半径 */\n"
+"    qproperty-icon:url(:/quit/300ppi/quit_w.png)\n"
+"}\n"
+"\n"
+"\n"
+"/* 悬停状态 */\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(70, 227, 162);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}\n"
+"\n"
+"/* 按下状态 */\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(62, 204, 145);\n"
+"    qproperty-icon: url(:/dia/300ppi/dia_b.png)\n"
+"}")
+        self.quit_btn.setIconSize(QtCore.QSize(32, 32))
+        self.quit_btn.setObjectName("quit_btn")
+        self.setting_grid_layout.addWidget(self.quit_btn, 3, 1, 1, 1)
+        self.gridLayout.addLayout(self.setting_grid_layout, 3, 0, 1, 1)
+        self.setting_scroll_area.setWidget(self.setting_scroll_contents)
+        self.setting_vertical_layout.addWidget(self.setting_scroll_area)
+        self.verticalLayout_2.addLayout(self.setting_vertical_layout)
         self.stackedWidget.addWidget(self.page_settings)
-        self.verticalLayout.addWidget(self.stackedWidget)
+        self.horizontalLayout_6.addWidget(self.stackedWidget)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.dia_btn.setShortcut(_translate("MainWindow", "Return"))
+        self.chat_btn.setShortcut(_translate("MainWindow", "Return"))
         self.date_label.setText(_translate("MainWindow", "15 May"))
         self.day_label.setText(_translate("MainWindow", "Tuesday"))
         self.hour_label.setText(_translate("MainWindow", "20"))
         self.spark_label.setText(_translate("MainWindow", ":"))
         self.minute_label.setText(_translate("MainWindow", "30"))
+        self.wifi_btn.setText(_translate("MainWindow", " Wi-Fi"))
+        self.bluetooth_btn.setText(_translate("MainWindow", " Bluetooth"))
+        self.language_btn.setText(_translate("MainWindow", " Language"))
+        self.clear_history_btn.setText(_translate("MainWindow", " Clear Histroy"))
+        self.light_btn.setText(_translate("MainWindow", " Light"))
+        self.volume_btn.setText(_translate("MainWindow", " Volume"))
+        self.return_btn.setText(_translate("MainWindow", " Return"))
+        self.quit_btn.setText(_translate("MainWindow", " Quit"))
 import gui.resources.resources_rc

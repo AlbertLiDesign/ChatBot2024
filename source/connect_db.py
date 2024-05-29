@@ -4,7 +4,7 @@ from datetime import datetime
 class ConnectDB:
     def __init__(self):
         self.chat_db_path = "../data/history.json"
-        # 示例数据
+
 
     def get_chat_data(self):
         with open(self.chat_db_path, "r") as f:
@@ -31,13 +31,13 @@ class ConnectDB:
         with open(self.chat_db_path, "w", encoding='utf-8') as f:
             json.dump(chat_db, f, indent=4, ensure_ascii=False)
 
-    def add_chat_data(self, sender, message):
+    def add_chat_data(self, role, content):
         timestamp = datetime.utcnow().isoformat() + 'Z'  # 获取当前时间戳
         chat_db = self.get_chat_data()
         chat_db["messages"].append({
             "timestamp": timestamp,
-            "role": sender,
-            "content": message
+            "role": role,
+            "content": content
         })
 
         # 更新结束时间
