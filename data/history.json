@@ -1,21 +1,11 @@
 {
     "session_id": "unique_session_id_12345",
-    "start_time": "2024-05-29T10:49:42.138562Z",
-    "end_time": "2024-05-29T10:49:44.090925Z",
+    "start_time": "2024-05-30T02:38:49.710518Z",
+    "end_time": "2024-05-30T02:38:49.710518Z",
     "participants": {
         "user": "user_id_67890",
         "assistant": "gpt-4o"
     },
     "messages": [
-        {
-            "timestamp": "2024-05-29T10:45:32.430499Z",
-            "role": "user",
-            "content": "Okay, but currently I feel a little bit lonely. Could you please share me some jokes and make me happy?\n"
-        },
-        {
-            "timestamp": "2024-05-29T10:49:44.090925Z",
-            "role": "user",
-            "content": "Okay, but currently I feel a little bit lonely. Could you please share me some jokes and make me happy?\n"
-        }
     ]
 }

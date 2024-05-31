@@ -1,11 +1,13 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QApplication, QVBoxLayout, QSizePolicy, QSpacerItem, QLabel
-from PyQt5.QtCore import QTimer, QTime, QDate, QLocale
+from PyQt5.QtWidgets import QApplication, QMainWindow, QApplication, QVBoxLayout,\
+    QWidget, QHBoxLayout, QLabel, QTextBrowser
+from PyQt5.QtCore import Qt, QTimer, QTime, QDate, QLocale, QSize
+from PyQt5.QtGui import QFont, QFontMetrics, QPixmap
 
 from gui.main_page import Ui_MainWindow
 
 from connect_db import ConnectDB
-from chat_window import UsrWidget, GPTWidget
+from chat_class import ChatClass
 
 import source.gpt as gpt
 
@@ -24,6 +26,7 @@ class MainWindow(QMainWindow):
         self.role_path = "../role_settings.txt"
 
         self.connect_db = ConnectDB()
+        self.sum=0
 
         # 定义ui控件
         self.chat_btn = self.ui.chat_btn
@@ -41,17 +44,17 @@ class MainWindow(QMainWindow):
         self.spark_label = self.ui.spark_label
         self.chat_scroll_area = self.ui.chat_scroll_area
         self.chat_scroll_content = self.ui.chat_scroll_content
+        self.chat_layout = QVBoxLayout(self.chat_scroll_content)
+        self.usr_icon = QPixmap("1.jpg")
+        self.gpt_icon = QPixmap("1.jpg")
 
-        # 设置一个垂直布局，用于消息列表
-        self.message_layout = QVBoxLayout(self.chat_scroll_content)
-        self.chat_scroll_content.setLayout(self.message_layout)
+        #设置聊天窗口样式 隐藏滚动条
+        self.chat_scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.chat_scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        # self.message_layout = QVBoxLayout(self.chat_scroll_area)
 
-        usr_widget = UsrWidget(self.chat_scroll_content)
-        usr_widget.set_user_text("who are you")
-        self.message_layout.addWidget(usr_widget)
-        usr_widget2 = UsrWidget(self.chat_scroll_content)
-        usr_widget2.set_user_text("who are you")
-        self.message_layout.addWidget(usr_widget2)
+        scrollbar = self.chat_scroll_area.verticalScrollBar()
+        scrollbar.rangeChanged.connect(self.adjustScrollToMaxValue) #监听窗口滚动条范围
 
         # 创建一个定时器
         self.timer = QTimer(self)
@@ -87,40 +90,40 @@ class MainWindow(QMainWindow):
         self.connect_db.set_start_date()
         # 先录音
         self.recording()
-        chat_data = self.connect_db.get_chat_data()
-        self.show_chats(chat_data)
+        # chat_data = self.connect_db.get_chat_data()
 
     def recording(self):
         # 语音转文字
-        question = gpt.voice2text(self.qus_path)
-        # question = "who are you?"
+        # question = gpt.voice2text(self.qus_path)
+        question = "who are you?"
         self.connect_db.add_chat_data("user", question)
+        self.create_widget(question)
+        self.set_widget(question)
 
-    def show_chats(self, chat_data):
-        messages = chat_data.get("messages", [])
+    def create_widget(self, message):
+        self.sum += 1
+        if self.sum % 2:   # 根据判断创建左右气泡
+            ChatClass.set_chat(self, self.usr_icon, message, Qt.LeftToRight)    # 调用new_widget.py中方法生成左气泡
+            QApplication.processEvents()                                # 等待并处理主循环事件队列
+        else:
+            ChatClass.set_chat(self, self.gpt_icon, message, Qt.RightToLeft)   # 调用new_widget.py中方法生成右气泡
+            QApplication.processEvents()                                # 等待并处理主循环事件队列
 
-        # for message in messages:
-        #     role = message.get("role")
-        #     if role == "user":
-        #         usr_str = message.get("content", "")
-        #         usr_widget = UsrWidget(self.chat_scroll_content)
-        #         usr_widget.set_user_text(usr_str)
-        #         self.message_layout.addWidget(usr_widget)
-        #         print(f"Added User Message: {usr_str}")  # 调试信息
-        #
-        #     elif role == "echo":
-        #         gpt_str = message.get("content", "")
-        #         gpt_widget = GPTWidget(self.chat_scroll_content)
-        #         gpt_widget.set_gpt_text(gpt_str)
-        #         self.message_layout.addWidget(gpt_widget)
-        #         print(f"Added GPT Message: {gpt_str}")  # 调试信息
+    def set_widget(self, message):
+        font = QFont()
+        font.setPointSize(12)
+        fm = QFontMetrics(font)
+        text_width = fm.width(message) + 115  # 根据字体大小生成适合的气泡宽度
+        if self.sum != 0:
+            if text_width > 350:  # 宽度上限
+                text_width = int(self.textBrowser.document().size().width()) + 50  # 固定宽度
+            self.widget.setMinimumSize(text_width, int(self.textBrowser.document().size().height()) + 40)  # 规定气泡大小
+            self.widget.setMaximumSize(text_width, int(self.textBrowser.document().size().height()) + 40)  # 规定气泡大小
+            self.chat_scroll_area.verticalScrollBar().setValue(10)
 
-        # 添加一个spacer item，使得消息能自动靠上显示
-        # spacer_item = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-        # self.message_layout.addItem(spacer_item)
-
-        # 调整滚动条以显示最新消息
-        # self.chat_scroll_area.verticalScrollBar().setValue(self.chat_scroll_area.verticalScrollBar().maximum())
+    def adjustScrollToMaxValue(self):
+        scrollbar = self.chat_scroll_area.verticalScrollBar()
+        scrollbar.setValue(scrollbar.maximum())
 
     def show_main_page(self):
         self.ui.stackedWidget.setCurrentIndex(0)
@@ -173,3 +176,5 @@ class MainWindow(QMainWindow):
             new_text = text.replace('<span style="color: transparent;">:</span>', ":")
         self.colon_visible = not self.colon_visible
         self.spark_label.setText(new_text)
+
+

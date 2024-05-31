@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QSpacerItem, QSizePolicy
 
 from gui.usr_widget import Ui_Form as usr_form
 from gui.gpt_widget import Ui_Form as gpt_form
@@ -25,37 +25,32 @@ class GPTWidget(QWidget):
         self.gpt_label.setText(answer)
 
 class ChatWindow(QWidget):
-    def __init__(self, parent=None, chat_data=None):
+    def __init__(self, parent=None, layout=None, chat_data=None):
         super().__init__(parent)
 
         self.chat_data = chat_data
-
-        self.main_verticalLayout = QVBoxLayout(self)
-        self.main_verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.main_verticalLayout.setSpacing(0)
-        self.main_verticalLayout.setObjectName("main_verticalLayout")
-
+        self.layout = layout
         self.show_chats()
 
     def show_chats(self):
-        messages = self.chat_data.get("messages")
+        messages = self.chat_data.get("messages", [])
+
         for message in messages:
-            if message.get("role") == "user":
-                usr_str = message.get("content")
+            role = message.get("role")
+            if role == "user":
+                usr_str = message.get("content", "")
                 usr_widget = UsrWidget()
                 usr_widget.set_user_text(usr_str)
-                self.main_verticalLayout.addWidget(usr_widget)
+                self.layout.addWidget(usr_widget)
+                print(f"Added User Message: {usr_str}")  # 调试信息
 
-            if message.get("role") == "echo":
-                gpt_str = message.get("content")
-                gpt_widget = GPTWidget()
+            elif role == "echo":
+                gpt_str = message.get("content", "")
+                gpt_widget = GPTWidget(self.chat_scroll_content)
                 gpt_widget.set_gpt_text(gpt_str)
-                self.main_verticalLayout.addWidget(gpt_widget)
+                self.layout.addWidget(gpt_widget)
+                print(f"Added GPT Message: {gpt_str}")  # 调试信息
 
-
-        # spacerItem = QSpacerItem(20, 293, QSizePolicy.Minimum, QSizePolicy.Expanding)
-        # self.main_verticalLayout.addItem(spacerItem)
-        self.setLayout(self.main_verticalLayout)
-
-        # 调整滚动条以显示最新消息
-        self.scroll_area.verticalScrollBar().setValue(self.scroll_area.verticalScrollBar().maximum())
+        # 添加一个spacer item，使得消息能自动靠上显示
+        spacer_item = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.layout.addItem(spacer_item)
