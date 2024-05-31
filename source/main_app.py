@@ -1,15 +1,15 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QApplication, QVBoxLayout,\
-    QWidget, QHBoxLayout, QLabel, QTextBrowser
-from PyQt5.QtCore import Qt, QTimer, QTime, QDate, QLocale, QSize
-from PyQt5.QtGui import QFont, QFontMetrics, QPixmap
+    QWidget
+from PyQt5.QtCore import Qt, QTimer, QTime, QDate, QLocale, pyqtSlot
+from PyQt5.QtGui import QPixmap
 
 from gui.main_page import Ui_MainWindow
 
 from connect_db import ConnectDB
-from chat_class import ChatClass
+from chat_class import BubbleLabel
 
-import source.gpt as gpt
+from source.conversation_thread import RecordingThread, GPTThread, VoicePlayThread
 
 
 class MainWindow(QMainWindow):
@@ -18,7 +18,7 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.show_main_page() # 设置主页面
+        self.show_main_page()  # 设置主页面
 
         # 各种文件的路径
         self.qus_path = "../question.wav"
@@ -26,7 +26,11 @@ class MainWindow(QMainWindow):
         self.role_path = "../role_settings.txt"
 
         self.connect_db = ConnectDB()
-        self.sum=0
+
+        # 初始化线程
+        self.recording_thread = None
+        self.gpt_thread = None
+        self.vp_thread = None
 
         # 定义ui控件
         self.chat_btn = self.ui.chat_btn
@@ -44,17 +48,17 @@ class MainWindow(QMainWindow):
         self.spark_label = self.ui.spark_label
         self.chat_scroll_area = self.ui.chat_scroll_area
         self.chat_scroll_content = self.ui.chat_scroll_content
-        self.chat_layout = QVBoxLayout(self.chat_scroll_content)
         self.usr_icon = QPixmap("1.jpg")
         self.gpt_icon = QPixmap("1.jpg")
 
-        #设置聊天窗口样式 隐藏滚动条
-        self.chat_scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.chat_scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        # self.message_layout = QVBoxLayout(self.chat_scroll_area)
+        self.chatWidget = QWidget()
+        self.chat_layout = QVBoxLayout(self.chatWidget)
+        self.chat_layout.addStretch(1)
+        self.chat_scroll_area.setWidget(self.chatWidget)
 
-        scrollbar = self.chat_scroll_area.verticalScrollBar()
-        scrollbar.rangeChanged.connect(self.adjustScrollToMaxValue) #监听窗口滚动条范围
+        # 设置聊天窗口样式 隐藏滚动条
+        self.chat_scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.chat_scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
         # 创建一个定时器
         self.timer = QTimer(self)
@@ -67,13 +71,7 @@ class MainWindow(QMainWindow):
         # 初始化时钟显示
         self.update_time()
 
-        # 按钮功能
-        self.chat_num = 0  # 检测是否是第一次输入
-        if self.chat_num == 0:
-            self.record_btn.clicked.connect(self.start_chat)
-        else:
-            self.record_btn.clicked.connect(self.recording)
-
+        self.record_btn.clicked.connect(self.conversation)
         self.chat_btn.clicked.connect(self.show_chat_page)
         self.set_btn.clicked.connect(self.show_set_page)
         self.return_btn.clicked.connect(self.show_main_page)
@@ -85,51 +83,51 @@ class MainWindow(QMainWindow):
         self.language_btn.clicked.connect(self.switch_language)
         self.volume_btn.clicked.connect(self.show_volume_page)
 
-    def start_chat(self):
-        # 记录开始时间
-        self.connect_db.set_start_date()
-        # 先录音
-        self.recording()
-        # chat_data = self.connect_db.get_chat_data()
+    def conversation(self):
+        # 创建并启动录音线程
+        self.recording_thread = RecordingThread(self.qus_path)
+        self.recording_thread.result_ready.connect(self.handle_recording_result)
+        self.recording_thread.start()
 
-    def recording(self):
-        # 语音转文字
-        # question = gpt.voice2text(self.qus_path)
-        question = "who are you?"
-        self.connect_db.add_chat_data("user", question)
-        self.create_widget(question)
-        self.set_widget(question)
+        # 禁用录音按钮
+        self.record_btn.setEnabled(False)
 
-    def create_widget(self, message):
-        self.sum += 1
-        if self.sum % 2:   # 根据判断创建左右气泡
-            ChatClass.set_chat(self, self.usr_icon, message, Qt.LeftToRight)    # 调用new_widget.py中方法生成左气泡
-            QApplication.processEvents()                                # 等待并处理主循环事件队列
-        else:
-            ChatClass.set_chat(self, self.gpt_icon, message, Qt.RightToLeft)   # 调用new_widget.py中方法生成右气泡
-            QApplication.processEvents()                                # 等待并处理主循环事件队列
+    @pyqtSlot(str)
+    def handle_recording_result(self, question):
+        # 更新 UI，显示用户问题
+        self.addBubble(question, is_user=True)
+        self.connect_db.add_chat_data(role="user", content=question)
 
-    def set_widget(self, message):
-        font = QFont()
-        font.setPointSize(12)
-        fm = QFontMetrics(font)
-        text_width = fm.width(message) + 115  # 根据字体大小生成适合的气泡宽度
-        if self.sum != 0:
-            if text_width > 350:  # 宽度上限
-                text_width = int(self.textBrowser.document().size().width()) + 50  # 固定宽度
-            self.widget.setMinimumSize(text_width, int(self.textBrowser.document().size().height()) + 40)  # 规定气泡大小
-            self.widget.setMaximumSize(text_width, int(self.textBrowser.document().size().height()) + 40)  # 规定气泡大小
-            self.chat_scroll_area.verticalScrollBar().setValue(10)
+        # 创建并启动 GPT 线程
+        self.gpt_thread = GPTThread(question, self.role_path, self.connect_db)
+        self.gpt_thread.result_ready.connect(self.handle_gpt_result)
+        self.gpt_thread.start()
 
-    def adjustScrollToMaxValue(self):
-        scrollbar = self.chat_scroll_area.verticalScrollBar()
-        scrollbar.setValue(scrollbar.maximum())
+    @pyqtSlot(str)
+    def handle_gpt_result(self, answer):
+        # 更新 UI，显示 GPT 回答
+        self.addBubble(answer, is_user=False)
+
+        # 禁用录音按钮
+        self.record_btn.setEnabled(True)
+
+        # 播放声音
+        self.vp_thread = VoicePlayThread(answer, self.ans_path)
+        self.vp_thread.start()
+
+    def addBubble(self, message, is_user=True):
+        bubble = BubbleLabel(message, is_user)
+        alignment = Qt.AlignRight if is_user else Qt.AlignLeft
+        self.chat_layout.insertWidget(self.chat_layout.count() - 1, bubble, 0, alignment)
+        self.chat_scroll_area.verticalScrollBar().setValue(self.chat_scroll_area.verticalScrollBar().maximum())
 
     def show_main_page(self):
         self.ui.stackedWidget.setCurrentIndex(0)
 
     def show_chat_page(self):
         self.ui.stackedWidget.setCurrentIndex(1)
+        # 记录开始时间
+        self.connect_db.set_start_date()
 
     def show_set_page(self):
         self.ui.stackedWidget.setCurrentIndex(2)

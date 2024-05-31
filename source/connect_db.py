@@ -12,15 +12,6 @@ class ConnectDB:
 
         return chat_db
 
-    def get_chat_date_list(self):
-        chat_list=[]
-        chat_db = self.get_chat_data()
-        for chat in chat_db:
-            date = chat.get("date")
-            chat_list.append(date)
-
-        return chat_list
-
     def set_start_date(self):
         timestamp = datetime.utcnow().isoformat() + 'Z'  # 获取当前时间戳
         chat_db = self.get_chat_data()
