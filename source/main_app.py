@@ -1,15 +1,12 @@
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QApplication, QVBoxLayout,\
+from PyQt5.QtWidgets import QMainWindow, QApplication, QVBoxLayout,\
     QWidget
 from PyQt5.QtCore import Qt, QTimer, QTime, QDate, QLocale, pyqtSlot
 from PyQt5.QtGui import QPixmap
 
-from gui.main_page import Ui_MainWindow
+from source.gui.main_page import Ui_MainWindow
 
-from connect_db import ConnectDB
-from chat_class import BubbleLabel
-import source.text2voice as t2v
-import source.speaker as speaker
+from source.connect_db import ConnectDB
+from source.chat_class import BubbleLabel
 
 from source.conversation_thread import RecordingThread, GPTThread, VoicePlayThread
 
@@ -19,13 +16,14 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.showFullScreen()
 
         self.show_main_page()  # 设置主页面
 
         # 各种文件的路径
-        self.qus_path = "../question.wav"
-        self.ans_path = "../answer.mp3"  # 使用openai的api，这里得改成mp3格式
-        self.role_path = "../role_settings.txt"
+        self.qus_path = "question.wav"
+        self.ans_path = "answer.mp3"  # 使用openai的api，这里得改成mp3格式
+        self.role_path = "role_settings.txt"
 
         self.connect_db = ConnectDB()
 

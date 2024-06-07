@@ -1336,4 +1336,4 @@ class Ui_MainWindow(object):
         self.volume_btn.setText(_translate("MainWindow", " Volume"))
         self.return_btn.setText(_translate("MainWindow", " Return"))
         self.quit_btn.setText(_translate("MainWindow", " Quit"))
-import gui.resources.resources_rc
+import source.gui.resources_rc

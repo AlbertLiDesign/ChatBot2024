@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QSpacerItem, QSizePolicy
 
-from gui.usr_widget import Ui_Form as usr_form
-from gui.gpt_widget import Ui_Form as gpt_form
+from source.gui.backup.usr_widget import Ui_Form as usr_form
+from source.gui.backup.gpt_widget import Ui_Form as gpt_form
 class UsrWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)

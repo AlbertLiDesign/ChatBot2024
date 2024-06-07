@@ -3,7 +3,7 @@ from datetime import datetime
 
 class ConnectDB:
     def __init__(self):
-        self.chat_db_path = "../data/history.json"
+        self.chat_db_path = "data/history.json"
 
 
     def get_chat_data(self):

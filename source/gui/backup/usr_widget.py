@@ -81,4 +81,4 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.usr_chat.setText(_translate("Form", "To complete your request and create great images in Midjourney, I will need to define the subject\'s characteristics, pose, background, lighting, and style. I will create 5 optimized Midjourney commands to you and repeat this process until your request is completed."))
-import gui.resources.resources_rc
+import resources_rc
