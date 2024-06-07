@@ -1,6 +1,6 @@
 import speech_recognition as sr
 
-import source.gpt as gpt
+import source.gpt_2 as gpt
 import source.recorder as recorder
 import source.speaker as speaker
 import source.wake_up as wake_up
@@ -19,7 +19,7 @@ dev_role = "Echo: "
 
 # 各种文件的路径
 qus_path = "question.wav"
-ans_path = "answer.wav" # 使用openai的api，这里得改成mp3格式
+ans_path = "answer.mp3" # 使用openai的api，这里得改成mp3格式
 his_path = "history.txt"
 role_path = "role_settings.txt"
 
@@ -77,7 +77,7 @@ if __name__ == "__main__":
                         print(dev_role + answer)
 
                         # text to voice
-                        t2v.google_api(answer, ans_path)
+                        t2v.openai_api(answer, ans_path)
 
                         # play voice
                         speaker.play_voice(ans_path)

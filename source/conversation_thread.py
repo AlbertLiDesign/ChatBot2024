@@ -35,6 +35,7 @@ class GPTThread(QThread):
 
 
 class VoicePlayThread(QThread):
+    finished_signal = pyqtSignal()
     def __init__(self, answer, ans_path):
         super().__init__()
         self.ans_path = ans_path
@@ -42,6 +43,7 @@ class VoicePlayThread(QThread):
 
     def run(self):
         # text to voice
-        t2v.google_api(self.answer, self.ans_path)
+        t2v.openai_api(self.answer, self.ans_path)
         # play voice
         speaker.play_voice(self.ans_path)
+        self.finished_signal.emit()  # 发出完成信号

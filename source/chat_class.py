@@ -22,7 +22,7 @@ class BubbleLabel(QLabel):
                     border: none;
                     border-radius: 10px;
                     padding: 5px 10px;
-                    margin: 2px;
+                    margin: 5px;
                     color: rgb(0, 0, 0);
                 }
             """
@@ -33,7 +33,7 @@ class BubbleLabel(QLabel):
                     border: none;
                     border-radius: 10px;
                     padding: 5px 10px;
-                    margin: 2px;
+                    margin: 5px;
                     color: rgb(255, 255, 255);
                 }
             """
@@ -43,7 +43,7 @@ class BubbleLabel(QLabel):
         metrics = self.fontMetrics()
         text_rect = metrics.boundingRect(0, 0, max_width, 0, Qt.TextWordWrap, self.text())
         text_width = min(max_width, text_rect.width() + 20)  # 增加一些宽度以适应 padding
-        text_height = text_rect.height() + 20  # 增加一些高度以适应 padding
+        text_height = text_rect.height() + 30  # 增加一些高度以适应 padding
         return QSize(text_width, text_height)
 
     def resizeEvent(self, event):

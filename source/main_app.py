@@ -8,6 +8,8 @@ from gui.main_page import Ui_MainWindow
 
 from connect_db import ConnectDB
 from chat_class import BubbleLabel
+import source.text2voice as t2v
+import source.speaker as speaker
 
 from source.conversation_thread import RecordingThread, GPTThread, VoicePlayThread
 
@@ -22,7 +24,7 @@ class MainWindow(QMainWindow):
 
         # 各种文件的路径
         self.qus_path = "../question.wav"
-        self.ans_path = "../answer.wav"  # 使用openai的api，这里得改成mp3格式
+        self.ans_path = "../answer.mp3"  # 使用openai的api，这里得改成mp3格式
         self.role_path = "../role_settings.txt"
 
         self.connect_db = ConnectDB()
@@ -92,6 +94,7 @@ class MainWindow(QMainWindow):
         # 禁用录音按钮
         self.record_btn.setEnabled(False)
 
+
     @pyqtSlot(str)
     def handle_recording_result(self, question):
         # 更新 UI，显示用户问题
@@ -108,12 +111,15 @@ class MainWindow(QMainWindow):
         # 更新 UI，显示 GPT 回答
         self.addBubble(answer, is_user=False)
 
-        # 禁用录音按钮
-        self.record_btn.setEnabled(True)
-
-        # 播放声音
+        # 创建并启动播放声音线程
         self.vp_thread = VoicePlayThread(answer, self.ans_path)
+        self.vp_thread.finished_signal.connect(self.enable_record_btn)  # 连接完成信号
         self.vp_thread.start()
+
+    @pyqtSlot()
+    def enable_record_btn(self):
+        # 启用录音按钮
+        self.record_btn.setEnabled(True)
 
     def addBubble(self, message, is_user=True):
         bubble = BubbleLabel(message, is_user)
